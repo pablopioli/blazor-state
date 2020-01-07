@@ -20,5 +20,6 @@
     IStore Store { get; set; }
 
     void ReRender();
+    void OnStateSet();
   }
 }

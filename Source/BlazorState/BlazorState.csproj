@@ -12,10 +12,10 @@
 
   <PropertyGroup>
     <Title>Blazor State</Title>
-    <Company>TimeWarp Enterprises Limited</Company>
-    <Description>blazor-state a MediatR pipeline for Blazor state management</Description>
+    <Company></Company>
+    <Description>A MediatR pipeline for Blazor state management - Fork of https://github.com/TimeWarpEngineering/blazor-state with custom changes</Description>
     <OutputType>Library</OutputType>
-    <PackageId>Blazor-State</PackageId>
+    <PackageId>ppioli.blazor.state</PackageId>
     <AssemblyName>Blazor-State</AssemblyName>
     <!--<PackageIcon>Logo.png</PackageIcon> This works in dotnet and MSBuild but Nuget still doesn't support it.-->
     <PackageLicenseFile>UNLICENSE.txt</PackageLicenseFile>
@@ -43,6 +43,12 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput)</TargetsForTfmSpecificBuildOutput>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./bin/Packages</PackageOutputPath>
+    <Authors>Pablo Pioli - Steven T. Cramer</Authors>
+    <PackageProjectUrl>https://github.com/pablopioli/blazor-state</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/pablopioli/blazor-state</RepositoryUrl>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DefaultReduxEnabled|AnyCPU'">

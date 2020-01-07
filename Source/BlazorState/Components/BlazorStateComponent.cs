@@ -1,9 +1,9 @@
 ﻿namespace BlazorState
 {
-  using System;
-  using System.Collections.Concurrent;
   using MediatR;
   using Microsoft.AspNetCore.Components;
+  using System;
+  using System.Collections.Concurrent;
 
   /// <summary>
   /// A non required Base Class that injects Mediator and Store.
@@ -45,7 +45,11 @@
     /// <summary>
     /// Exposes StateHasChanged
     /// </summary>
-    public void ReRender() => base.InvokeAsync(StateHasChanged);
+    public void ReRender()
+    {
+      base.InvokeAsync(OnStateSet);
+      base.InvokeAsync(StateHasChanged);
+    }
 
     /// <summary>
     /// Place a Subscription for the calling component
@@ -61,5 +65,10 @@
     }
 
     public void Dispose() => Subscriptions.Remove(this);
+
+    /// <summary>
+    /// Notifies subscribe when state has been modified before re-render.
+    /// </summary>
+    public virtual void OnStateSet() { }
   }
 }

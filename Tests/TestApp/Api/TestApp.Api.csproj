@@ -3,7 +3,7 @@
     <Configurations>Debug;Release;ReduxDevToolsEnabled</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="$(MediatrVersion)" />
+    <PackageReference Include="MediatR" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

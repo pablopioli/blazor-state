@@ -28,17 +28,17 @@
 
   <!--Versions of packages used across the solution-->
   <PropertyGroup Label="Package Versions">
-    <MicrosoftAspNetCoreBlazorVersion>3.1.0-preview4.19579.2</MicrosoftAspNetCoreBlazorVersion>
+    <MicrosoftAspNetCoreBlazorVersion>3.2.0-preview2.20160.5</MicrosoftAspNetCoreBlazorVersion>
     <MicrosoftAspNetCoreBlazorHttpClientVersion>$(MicrosoftAspNetCoreBlazorVersion)</MicrosoftAspNetCoreBlazorHttpClientVersion>
     <MicrosoftAspNetCoreBlazorServerVersion>$(MicrosoftAspNetCoreBlazorVersion)</MicrosoftAspNetCoreBlazorServerVersion>
-    
-    <MicrosoftAspNetCoreVersion>3.1.1</MicrosoftAspNetCoreVersion>
+
+    <MicrosoftAspNetCoreVersion>3.1.2</MicrosoftAspNetCoreVersion>
     <MicrosoftAspNetCoreComponentsWebVersion>$(MicrosoftAspNetCoreVersion)</MicrosoftAspNetCoreComponentsWebVersion>
     <MicrosoftAspNetCoreTestHostVersion>$(MicrosoftAspNetCoreVersion)</MicrosoftAspNetCoreTestHostVersion>
-    
+
     <MicrosoftExtensionsFileProvidersEmbeddedVersion>$(MicrosoftAspNetCoreVersion)</MicrosoftExtensionsFileProvidersEmbeddedVersion>
     <MicrosoftExtensionsLoggingAbstractionsVersion>$(MicrosoftAspNetCoreVersion)</MicrosoftExtensionsLoggingAbstractionsVersion>
-    
+
     <MicrosoftSourceLinkGitHubVersion>1.0.0</MicrosoftSourceLinkGitHubVersion>
 
     <AnyCloneVersion>1.0.34</AnyCloneVersion>

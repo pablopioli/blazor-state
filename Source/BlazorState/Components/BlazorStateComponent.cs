@@ -1,4 +1,4 @@
-﻿namespace BlazorState
+namespace BlazorState
 {
   using MediatR;
   using Microsoft.AspNetCore.Components;
@@ -43,6 +43,11 @@
     [Inject] public Subscriptions Subscriptions { get; set; }
 
     /// <summary>
+    /// Notifies subscribe when state has been modified before re-render.
+    /// </summary>
+    public virtual void OnStateSet() { }
+
+    /// <summary>
     /// Exposes StateHasChanged
     /// </summary>
     public void ReRender()
@@ -65,10 +70,5 @@
     }
 
     public void Dispose() => Subscriptions.Remove(this);
-
-    /// <summary>
-    /// Notifies subscribe when state has been modified before re-render.
-    /// </summary>
-    public virtual void OnStateSet() { }
   }
 }

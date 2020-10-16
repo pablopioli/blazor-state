@@ -1,4 +1,4 @@
-﻿namespace BlazorState
+namespace BlazorState
 {
   using Microsoft.Extensions.Logging;
   using System;
@@ -33,7 +33,7 @@
 
       using (Logger.BeginScope(new Dictionary<string, object> { [nameof(Guid)] = Guid }))
       {
-        Logger.LogDebug($"{GetType().Name}: constructor: {nameof(Guid)}:{Guid}");
+        Logger.LogInformation($"{GetType().Name}: constructor: {nameof(Guid)}:{Guid}");
         States = new Dictionary<string, IState>();
       }
     }

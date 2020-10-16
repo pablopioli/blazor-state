@@ -79,7 +79,6 @@ namespace BlazorState
           aServiceCollection.AddTransient<IRequestHandler<ChangeRouteAction, Unit>, ChangeRouteHandler>();
           aServiceCollection.AddTransient<IRequestHandler<InitializeRouteAction, Unit>, InitializeRouteHandler>();
         }
-        
       }
       return aServiceCollection;
     }

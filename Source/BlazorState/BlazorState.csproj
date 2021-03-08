@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Blazor Library Template parameters-->
   <!--https://github.com/aspnet/AspNetCore/blob/master/src/Components/Blazor/Templates/src/content/BlazorLibrary-CSharp/BlazorLibrary-CSharp.csproj -->
@@ -11,6 +11,7 @@
   <!-- End Blazor Library Template parameters-->
 
   <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
     <Title>Blazor State</Title>
     <Company>TimeWarp Enterprises Limited</Company>
     <Description>A MediatR pipeline for Blazor state management - Fork of https://github.com/TimeWarpEngineering/blazor-state with custom changes</Description>
@@ -43,7 +44,7 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput)</TargetsForTfmSpecificBuildOutput>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./bin/Packages</PackageOutputPath>
-    <Version>1.4</Version>
+    <Version>1.5</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DefaultReduxEnabled|AnyCPU'">

@@ -3,6 +3,7 @@ namespace CloneStateBehavior
   using Shouldly;
   using System;
   using System.Threading.Tasks;
+  using TestApp.Client.Features.Application;
   using TestApp.Client.Features.CloneTest;
   using TestApp.Client.Features.Counter;
   using TestApp.Client.Integration.Tests.Infrastructure;
@@ -13,6 +14,7 @@ namespace CloneStateBehavior
   {
     private CloneTestState CloneTestState => Store.GetState<CloneTestState>();
     private CounterState CounterState => Store.GetState<CounterState>();
+    private ApplicationState ApplicationState => Store.GetState<ApplicationState>();
 
     public Should(ClientHost aWebAssemblyHost) : base(aWebAssemblyHost) { }
 
@@ -49,11 +51,12 @@ namespace CloneStateBehavior
       CloneTestState.Count.ShouldBe(42);
     }
 
-    public async Task RollBackStateAndThrow_When_Exception()
+    public async Task RollBackStateAndPublish_When_Exception()
     {
       // Arrange
       // Setup know state.
       CounterState.Initialize(aCount: 22);
+      ApplicationState.Initialize("anyname", "");
       Guid preActionGuid = CounterState.Guid;
 
       var throwExceptionAction = new ThrowExceptionAction
@@ -62,12 +65,12 @@ namespace CloneStateBehavior
       };
 
       // Act
-      Exception exception = await Shouldly.Should.ThrowAsync<Exception>(async () =>
-      await Send(throwExceptionAction));
+      await Send(throwExceptionAction).ConfigureAwait(false);
 
       // Assert
-      exception.Message.ShouldBe(throwExceptionAction.Message);
-      CounterState.Guid.Equals(preActionGuid);
+      ApplicationState.ExceptionMessage.ShouldBe(throwExceptionAction.Message);
+      CounterState.Guid.Equals(preActionGuid).ShouldBeTrue();
     }
+
   }
 }

@@ -10,22 +10,32 @@ namespace BlazorState.Pipeline.State
 
   internal class CloneStateBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
   {
-    public CloneStateBehavior(
+    private readonly ILogger Logger;
+    private readonly IMediator Mediator;
+    private readonly BlazorStateOptions BlazorStateOptions;
+    private readonly IStore Store;
+    private bool IsClientSide;
+
+    public CloneStateBehavior
+    (
       ILogger<CloneStateBehavior<TRequest, TResponse>> aLogger,
-      IStore aStore)
+      BlazorStateOptions aBlazorStateOptions,
+      IStore aStore,
+      IMediator aMediator)
     {
       Logger = aLogger;
       Logger.LogDebug($"{GetType().Name} constructor");
+      BlazorStateOptions = aBlazorStateOptions;
       Store = aStore;
+      Mediator = aMediator;
     }
 
-    private readonly ILogger Logger;
-    private readonly IStore Store;
-
-    public async Task<TResponse> Handle(
+    public async Task<TResponse> Handle
+    (
       TRequest aRequest,
       CancellationToken aCancellationToken,
-      RequestHandlerDelegate<TResponse> aNext)
+      RequestHandlerDelegate<TResponse> aNext
+    )
     {
       Type declaringType = typeof(TRequest).DeclaringType;
       // logging variables
@@ -40,6 +50,7 @@ namespace BlazorState.Pipeline.State
       // Constrain here if not IState then ignore.
       if (typeof(IState).IsAssignableFrom(declaringType))
       {
+        IsClientSide = true;
         Logger.LogDebug($"{className}: Clone State of type {declaringType}");
         originalState = Store.GetState(declaringType) as IState;
         Logger.LogDebug($"{className}: originalState.Guid:{originalState.Guid}");
@@ -65,18 +76,28 @@ namespace BlazorState.Pipeline.State
       {
         // If something fails we restore system to previous state.
         // One may consider extension point here for error handling.
-        // Maybe if error occurs on one action we want to launch another action to
         // Update some error state so the user knows of the failure.
         // But as a rule if this is an exception it should be unexpected.
-        Logger.LogError($"{className}: Error: {aException.Message}");
-        Logger.LogError($"{className}: InnerError: {aException?.InnerException?.Message}");
-        Logger.LogError($"{className}: Restoring State of type: {declaringType}");
-        if (originalState != null)
+        Logger.LogWarning($"{className}: Error: {aException.Message}");
+        Logger.LogWarning($"{className}: InnerError: {aException?.InnerException?.Message}");
+        Logger.LogWarning($"{className}: Restoring State of type: {declaringType}");
+
+        if (IsClientSide && originalState != null)
         {
           Store.SetState(originalState as IState);
+
+          var exceptionNotification = new ExceptionNotification
+          {
+            //Request = aRequest,
+            RequestName = className,
+            Exception = aException
+          };
+
+          await Mediator.Publish(exceptionNotification).ConfigureAwait(false);
+          return default;
         }
 
-        throw;  // Do you throw or not? for now yes.
+        throw;
       }
     }
   }
